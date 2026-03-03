@@ -335,7 +335,13 @@ function App() {
               <div>
                 <h1 className="text-xl font-bold text-gray-900">东南亚日报选题系统</h1>
                 <p className="text-xs text-gray-500">
-                  {(() => {
+                  {crawlLog ? (() => {
+                    const fmt = (s: string) => {
+                      const d = new Date(s)
+                      return `${d.getMonth()+1}.${String(d.getDate()).padStart(2,'0')}`
+                    }
+                    return `${fmt(crawlLog.window_start)} 09:00 - ${fmt(crawlLog.window_end)} 09:00`
+                  })() : (() => {
                     const now = new Date()
                     const end = new Date(now)
                     end.setHours(9, 0, 0, 0)
