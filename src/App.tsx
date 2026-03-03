@@ -1,9 +1,4 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
 import { ExternalLink, Search, CheckSquare, Square, Newspaper, Download, Terminal, Star } from 'lucide-react'
 import newsData from './newsData.json'
 
@@ -354,18 +349,25 @@ function App() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="outline" size="sm" onClick={() => setShowLog(!showLog)}>
-                <Terminal className="w-4 h-4 mr-1" />
+              <button 
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm border rounded-md bg-white hover:bg-gray-50"
+                onClick={() => setShowLog(!showLog)}
+              >
+                <Terminal className="w-4 h-4" />
                 {showLog ? '隐藏日志' : '爬取日志'}
-              </Button>
+              </button>
               <div className="text-right mr-2">
                 <p className="text-xs text-gray-500">已选</p>
                 <p className="text-xl font-bold text-blue-600">{selectedUrls.size}</p>
               </div>
-              <Button onClick={makeArticle} disabled={selectedUrls.size === 0} className="bg-blue-600">
-                <Download className="w-4 h-4 mr-1" />
+              <button 
+                className="inline-flex items-center gap-1 px-4 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={makeArticle}
+                disabled={selectedUrls.size === 0}
+              >
+                <Download className="w-4 h-4" />
                 生成文章
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -409,57 +411,62 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 py-4">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           <div className="lg:col-span-1">
-            <Card className="sticky top-20">
-              <CardContent className="p-3 space-y-3">
-                <div className="relative">
-                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <Input
-                    placeholder="搜索..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="pl-8"
-                  />
-                </div>
+            <div className="bg-white rounded-lg shadow-sm border sticky top-20 p-3 space-y-3">
+              <div className="relative">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="搜索..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full pl-8 pr-3 py-2 border rounded-md text-sm"
+                />
+              </div>
 
-                <div className="space-y-1">
-                  <button
-                    onClick={() => setFilter('all')}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === 'all' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}`}
-                  >
-                    全部新闻 ({(newsData as NewsItem[]).length})
-                  </button>
+              <div className="space-y-1">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === 'all' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}`}
+                >
+                  全部新闻 ({(newsData as NewsItem[]).length})
+                </button>
 
-                  <button
-                    onClick={() => setFilter('recommended')}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === 'recommended' ? 'bg-yellow-100 text-yellow-700' : 'hover:bg-gray-100'}`}
-                  >
-                    <Star className="w-3 h-3 inline mr-1" /> 推荐选题 ({recommendedCount})
-                  </button>
-                  
-                  <div className="pt-2 border-t">
-                    <p className="text-xs text-gray-400 mb-1 px-3">按国家筛选</p>
-                    {countries.map(country => (
-                      <button
-                        key={country}
-                        onClick={() => setFilter(country)}
-                        className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === country ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
-                      >
-                        {countryFlag[country]} {country}
-                      </button>
-                    ))}
-                  </div>
+                <button
+                  onClick={() => setFilter('recommended')}
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === 'recommended' ? 'bg-yellow-100 text-yellow-700' : 'hover:bg-gray-100'}`}
+                >
+                  <Star className="w-3 h-3 inline mr-1" /> 推荐选题 ({recommendedCount})
+                </button>
+                
+                <div className="pt-2 border-t">
+                  <p className="text-xs text-gray-400 mb-1 px-3">按国家筛选</p>
+                  {countries.map(country => (
+                    <button
+                      key={country}
+                      onClick={() => setFilter(country)}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm ${filter === country ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                    >
+                      {countryFlag[country]} {country}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                <div className="flex gap-2 pt-2 border-t">
-                  <Button variant="outline" size="sm" onClick={selectAll} className="flex-1">
-                    <CheckSquare className="w-3 h-3 mr-1" /> 全选
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={clearAll} className="flex-1">
-                    <Square className="w-3 h-3 mr-1" /> 取消
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              <div className="flex gap-2 pt-2 border-t">
+                <button 
+                  className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm border rounded-md bg-white hover:bg-gray-50"
+                  onClick={selectAll}
+                >
+                  <CheckSquare className="w-3 h-3" /> 全选
+                </button>
+                <button 
+                  className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-1.5 text-sm border rounded-md bg-white hover:bg-gray-50"
+                  onClick={clearAll}
+                >
+                  <Square className="w-3 h-3" /> 取消
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="lg:col-span-4">
@@ -477,38 +484,47 @@ function App() {
                 const isVisible = shouldShow(item, filter, searchTerm)
                 const isSelected = selectedUrls.has(item.url)
                 return (
-                  <Card
+                  <div
                     key={item.url}
-                    className={`cursor-pointer ${isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}
+                    className={`bg-white rounded-lg shadow-sm border p-3 cursor-pointer ${isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}
                     style={{ display: isVisible ? 'block' : 'none' }}
                     onClick={() => toggleSelect(item.url)}
                   >
-                    <CardContent className="p-3">
-                      <div className="flex items-start gap-3">
-                        <div onClick={e => e.stopPropagation()}>
-                          <Checkbox checked={isSelected} onCheckedChange={() => toggleSelect(item.url)} />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <Badge className={countryColors[item.country]}>
-                              {countryFlag[item.country]} {item.country}
-                            </Badge>
-                            {item.recommended && (
-                              <Badge className="bg-yellow-100 text-yellow-700 border-yellow-200">
-                                <Star className="w-3 h-3 mr-1" /> 推荐
-                              </Badge>
-                            )}
-                            <span className="text-xs text-gray-500">{item.source}</span>
-                            <span className="text-xs text-gray-400">{item.time}</span>
-                          </div>
-                          <h3 className="text-sm font-medium">{item.title_cn}</h3>
-                          <a href={item.url} target="_blank" rel="noopener" onClick={e => e.stopPropagation()} className="text-xs text-blue-600 hover:underline">
-                            <ExternalLink className="w-3 h-3 inline" /> 查看原文
-                          </a>
-                        </div>
+                    <div className="flex items-start gap-3">
+                      <div onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          className="w-4 h-4 cursor-pointer"
+                          checked={isSelected}
+                          onChange={() => toggleSelect(item.url)}
+                        />
                       </div>
-                    </CardContent>
-                  </Card>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${countryColors[item.country]}`}>
+                            {countryFlag[item.country]} {item.country}
+                          </span>
+                          {item.recommended && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border bg-yellow-100 text-yellow-700 border-yellow-200">
+                              <Star className="w-3 h-3 mr-1" /> 推荐
+                            </span>
+                          )}
+                          <span className="text-xs text-gray-500">{item.source}</span>
+                          <span className="text-xs text-gray-400">{item.time}</span>
+                        </div>
+                        <h3 className="text-sm font-medium">{item.title_cn}</h3>
+                        <a 
+                          href={item.url} 
+                          target="_blank" 
+                          rel="noopener" 
+                          onClick={(e: React.MouseEvent) => e.stopPropagation()} 
+                          className="text-xs text-blue-600 hover:underline"
+                        >
+                          <ExternalLink className="w-3 h-3 inline" /> 查看原文
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 )
               })}
             </div>
