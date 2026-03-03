@@ -1,0 +1,74 @@
+{
+  "date": "2026-03-02",
+  "window_start": "2026-03-01 09:00:00",
+  "window_end": "2026-03-02 08:59:59",
+  "total_news": 59,
+  "sites": [
+    {
+      "site": "安塔拉通讯社",
+      "status": "success",
+      "count": 10
+    },
+    {
+      "site": "越南通讯社（中文）",
+      "status": "success",
+      "count": 6
+    },
+    {
+      "site": "马新社",
+      "status": "success",
+      "count": 5
+    },
+    {
+      "site": "Thansettakij",
+      "status": "success",
+      "count": 3
+    },
+    {
+      "site": "KHMER TIMES",
+      "status": "success",
+      "count": 6
+    },
+    {
+      "site": "AKP",
+      "status": "success",
+      "count": 3
+    },
+    {
+      "site": "泰国头条新闻",
+      "status": "success",
+      "count": 4
+    },
+    {
+      "site": "柬华日报",
+      "status": "success",
+      "count": 5
+    },
+    {
+      "site": "越南通讯社（越南语）",
+      "status": "success",
+      "count": 5
+    },
+    {
+      "site": "越南政府新闻网",
+      "status": "success",
+      "count": 4
+    },
+    {
+      "site": "越南工贸部",
+      "status": "success",
+      "count": 3
+    },
+    {
+      "site": "Bisnis Indonesia",
+      "status": "success",
+      "count": 5
+    },
+    {
+      "site": "印尼贸易部",
+      "status": "failed",
+      "count": 0,
+      "error": "timeout"
+    }
+  ]
+}
